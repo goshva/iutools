@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-light">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+		<link rel="stylesheet" href="/styles.css">
+		<script src="/theme.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+		<link href="/webfonts/fontello.css" rel="stylesheet">
+		<title>IUTools</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<button id="donate" onclick="location.href='/d'"><span class="material-icons-round">attach_money</span></button>
+
+			<div id="hotbar">
+				<button onclick="toggleTheme()"><span class="material-icons-round">mode_night</span></button>
+				<button onclick="location.href='/l'"><span class="material-icons-round">logout</span></button>
+			</div>
+
+			<h1>IUtools</h1>
+		
+			<form class="url-field" action="" method="POST">
+				<input size="32" maxlength="128" type="text" name="lesson_url" placeholder="Ссылка на урок">
+				<label></label>
+			</form>
+
+			{%if result%} {# yes i know my code is crap #}
+				{%if result[0][2] or result[1][2] or result[2][2] %}
+					<div class="result">
+						{%for i in result%}
+							{%if i[2]%}
+								<div class="tab">
+									<input id={{i[0]}} type="checkbox" name="results">
+									<label for={{i[0]}}><span class="material-icons-round">{{i[0]}}</span>&nbsp;{{i[1]}}</label>
+									
+									<div class="tab-content">
+										{%for link in i[2]%}
+											<a href={{link}} target="_blank">{{link}}</a>
+										{%endfor%}
+									</div>
+								</div>
+							{%endif%}
+						{%endfor%}
+					</div>
+				{%else%}
+					<div class="result">
+						<div class="tab">
+							<label>Ничего не найдено</label>
+						</div>
+					</div>
+				{%endif%}
+			{%endif%}
+
+			<div class="footer">
+				<a href="https://github.com/iurok106/iutools" target="_blank"><span class="icon-github"></span></a>
+				<a href="https://t.me/iutools" target="_blank"><span class="icon-telegram-plane"></span></a>
+				<a href="https://discord.gg/zEdbVASasX" target="_blank"><span class="icon-discord"></span></a>
+			</div>
+		</div>
+	</body>
+</html>

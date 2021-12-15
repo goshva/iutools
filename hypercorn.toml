@@ -1,0 +1,16 @@
+bind = "0.0.0.0:443"
+graceful_timeout = 3.0
+h2_max_concurrent_streams = 64
+h11_max_incomplete_size = 4096
+h2_max_inbound_frame_size = 4096
+websocket_max_message_size = 4096
+h2_max_header_list_size = 4096
+include_server_header = false
+ssl_handshake_timeout = 32
+keep_alive_timeout = 2
+worker_class = "uvloop"
+loglevel = "error"
+workers = 1
+
+certfile = "ssl/cert.pem"
+keyfile  = "ssl/key.pem"

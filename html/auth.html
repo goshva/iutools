@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-light">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+		<link rel="stylesheet" href="/styles.css">
+		<script src="/theme.js"></script>
+		<title>IUTools</title>
+	</head>
+  <body>
+		<div class="container">
+			<center>
+				<h1>IUtools</h1>
+
+				<form id="verify" action="" method="POST">
+					<div class="g-recaptcha" data-sitekey="6LccgXIdAAAAAFyUfZr1MdcyqtFisWg_ygP4GhYY" data-callback="verify"></div>
+					<br>
+					<span id="warning">
+						This site is protected by reCAPTCHA.
+						<br>Google <a href="https://policies.google.com/privacy">Privacy Policy</a> 
+						and <a href="https://policies.google.com/privacy">Terms of Service</a> apply.
+					</span>
+				</form>
+			</center>
+		</div>
+
+		<script>
+				function verify(){
+					document.getElementById("verify").submit()
+				}
+		</script>	
+
+  </body>
+</html>
