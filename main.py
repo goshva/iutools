@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#┃IUTv2 Server Core b0001                ┃
+#┃IUTv2 Server Core                      ┃
 #┃> coded with <3 by 0x7df, 2021         ┃
 #┃> licensed under MIT License           ┃
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -46,26 +46,34 @@ from ext.home import home
 @app.route('/', methods=["GET","POST"])
 @rate_limit(256, timedelta(hours=12))
 async def router():
-	if (await current_user.is_authenticated) == False:
-		return await auth()
-	else:
+	if (await current_user.is_authenticated):
 		return await home()
+
+	return await auth()
 
 @app.route('/d', methods=["GET"])
 @rate_limit(16, timedelta(hours=12))
 async def donate():
-	if (await current_user.is_authenticated) == True:
+	if (await current_user.is_authenticated):
 		return redirect(
 			f'https://oplata.qiwi.com/create?publicKey=48e7qUxn9T7RyYE1MVZswX1FRSbE6iyCj2gCRwwF3Dnh5XrasNTx3BGPiMsyXQFNKQhvukniQG8RTVhYm3iPwNMchpfi4NV1yp7Msu65dNspwyyCtMnLz8wRiEh8a67RZvYtNcdXqewJ56d9qTNukyesaaTcjryqbSpCqigU9xPZcZeVmeA7mHLF64VCZ&comment=Донат+на+развитие+IUTools+:)&lifetime={(datetime.now()+timedelta(minutes=15)).strftime("%Y-%m-%dT%H%M")}&successUrl=https%3A%2F%2Fiutools.ru'
 		)
-	else:
-		return redirect('/')
+
+	return redirect('/')
 
 @app.route('/l', methods=['GET'])
 @rate_limit(256, timedelta(hours=12))
 async def logout():
-	logout_user()
+	if (await current_user.is_authenticated):
+		logout_user()
+		return redirect('/')
+
 	return redirect('/')
+
+@app.route('/pasha', methods=['GET'])
+@rate_limit(256, timedelta(hours=12))
+async def pasha():
+	return await render_template('pasha.html')
 
 @app.errorhandler(Exception)
 async def exception_handler(error):
@@ -83,5 +91,5 @@ if __name__ == '__main__':
 	uvloop.install()
 
 	asyncio.run(
-    serve(app, Config().from_toml('hypercorn.toml'))
+		serve(app, Config().from_toml('hypercorn.toml'))
 	)

@@ -1,5 +1,5 @@
 from quart import request, render_template, redirect
-from quart_auth import AuthUser, login_user
+from quart_auth import AuthUser, current_user, login_user
 import requests, secrets
 import os
 
@@ -10,11 +10,12 @@ async def auth():
 			"response" : (await request.form)["g-recaptcha-response"]
 		})
 
-		if r.json()["success"] == True: 
+		if r.json()["success"]:
 			login_user(
-				AuthUser(secrets.token_urlsafe(16)), True # generate an id for the user 
-			)																						# and remember the session
+				AuthUser(secrets.token_urlsafe(16)), True # generate uid and save session
+			)
 
 			return redirect('/')
-			
+
 	return await render_template('auth.html')
+
