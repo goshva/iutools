@@ -185,3 +185,10 @@ input::placeholder {
 .tab input:checked ~ .tab-content {
   max-height: 160px;
 }
+
+#counter {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	border-top-left-radius: 4px;
+}
