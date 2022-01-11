@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 .theme-light {
 	--color-bg: #fff;
 	--color-font: #000;
